@@ -1,10 +1,11 @@
 package com.github.dmitraver.quikka
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Props, Actor, ActorLogging}
+import com.github.dmitraver.quikka.Quic.Bind
 
 class QuicManager extends Actor with ActorLogging {
 
   override def receive: Receive = {
-    case "Hello" => println("Hello")
+    case b: Bind => context.actorOf(Props(classOf[QuicListener], b))
   }
 }
